@@ -74,12 +74,11 @@ namespace EPTUI
 
             height = 16;
             width = 450;
-            /*
         }
 
         public override void Start()
         {
-            base.Start();*/
+            base.Start();
 
             _checkBox.relativePosition = new Vector3(5, 0);
             _color.relativePosition = new Vector3(22, -1.5f);

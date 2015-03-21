@@ -59,8 +59,12 @@ namespace EPTUI
         private UIComponent _metroBg;
         private UIComponent _trainBg;
 
+        private LoadMode _mode;
+
         public override void OnLevelLoaded(LoadMode mode)
         {
+            _mode = mode;
+
             // don't load mod in asset and map editor
             if (mode != LoadMode.LoadGame && mode != LoadMode.NewGame)
                 return;
@@ -70,17 +74,17 @@ namespace EPTUI
 
             var goBus = new GameObject("ExtendedBusPanel");
             _extendedBusPanel = goBus.AddComponent<UITransportPanel>();
-            _extendedBusPanel.transform.parent = view.cachedTransform;
+            _extendedBusPanel.transform.parent = view.transform;
             _extendedBusPanel.Type = TransportInfo.TransportType.Bus;
 
             var goMetro = new GameObject("ExtendedMetroPanel");
             _extendedMetroPanel = goMetro.AddComponent<UITransportPanel>();
-            _extendedMetroPanel.transform.parent = view.cachedTransform;
+            _extendedMetroPanel.transform.parent = view.transform;
             _extendedMetroPanel.Type = TransportInfo.TransportType.Metro;
 
             var goTrain = new GameObject("ExtendedTrainPanel");
             _extendedTrainPanel = goTrain.AddComponent<UITransportPanel>();
-            _extendedTrainPanel.transform.parent = view.cachedTransform;
+            _extendedTrainPanel.transform.parent = view.transform;
             _extendedTrainPanel.Type = TransportInfo.TransportType.Train;
 
             HookIntoNativeUI();
@@ -88,6 +92,9 @@ namespace EPTUI
 
         public override void OnLevelUnloading()
         {
+            if (_mode != LoadMode.LoadGame && _mode != LoadMode.NewGame)
+                return;
+
             TransportObserver.ClearSubscribers();
             GameObject.Destroy(_extendedBusPanel.gameObject);
             GameObject.Destroy(_extendedMetroPanel.gameObject);
