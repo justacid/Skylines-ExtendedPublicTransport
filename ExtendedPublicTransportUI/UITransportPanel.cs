@@ -34,8 +34,12 @@ namespace EPTUI
                         .LineName, right.GetComponent<UITransportLineRow>().LineName, StringComparison.OrdinalIgnoreCase)
             );
 
-            foreach (var go in _transportLineLabels)
+			bool odd = false;
+            foreach (var go in _transportLineLabels) {
                 AttachUIComponent(go);
+				go.GetComponent<UITransportLineRow>().IsOdd = odd;
+				odd = !odd;
+			}
 
             var neededHeight = _transportLineLabels.Count*(16+2) + 95;
             height = Mathf.Clamp(neededHeight, 347, 1000);

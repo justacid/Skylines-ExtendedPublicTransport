@@ -45,6 +45,8 @@ namespace EPTUI
             get { return _instanceID; }
         }
 
+		public bool IsOdd { get; set; }
+
         public float Height
         {
             get { return height; }
@@ -142,6 +144,14 @@ namespace EPTUI
             _passengers.textScale = 0.8f;
             _trips.textScale = 0.8f;
             _vehicles.textScale = 0.8f;
+
+			//zebra stripes background
+			this.backgroundSprite = "GenericPanelLight";
+			if(IsOdd) {
+				this.color = new Color32(150,150,150,255);
+			} else {
+				this.color = new Color32(130,130,130,255);
+			}
         }
 
         public void ShowLine()
