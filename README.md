@@ -15,10 +15,9 @@ Extends the Public Transport UI with additional list views and toggles for Bus, 
 * And more...
 
 ## Acknowledgements
-Interface heavily inspired by mockup from reddit user jb2386: http://www.reddit.com/r/CitiesSkylines/comments/2zjrlq/my_suggestion_for_improving_the_transportline/
-ModTools - invaluable tool for devs:
-http://steamcommunity.com/sharedfiles/filedetails/?id=409520576
+[Interface heavily inspired by mockup from reddit user jb2386](http://www.reddit.com/r/CitiesSkylines/comments/2zjrlq/my_suggestion_for_improving_the_transportline/)  
+[ModTools - invaluable tool for devs](http://steamcommunity.com/sharedfiles/filedetails/?id=409520576)
 
 ## Misc
-Pullrequests welcome! 
+Pullrequests welcome!  
 If somebody knows how to get the UIColorPicker and/or UIScrollablePanel working, please shoot me a message.
