@@ -38,7 +38,20 @@ namespace EPTUI
                 AttachUIComponent(go);
 
             var neededHeight = _transportLineLabels.Count*(16+2) + 95;
-            height = Mathf.Clamp(neededHeight, 300, 1000);
+            height = Mathf.Clamp(neededHeight, 347, 1000);
+
+            switch (Type)
+            {
+                case TransportInfo.TransportType.Bus:
+                    _title.TitleText = String.Format("Bus Lines ({0})", _transportLineLabels.Count);
+                    break;
+                case TransportInfo.TransportType.Metro:
+                    _title.TitleText = String.Format("Metro Lines ({0})", _transportLineLabels.Count);
+                    break;
+                case TransportInfo.TransportType.Train:
+                    _title.TitleText = String.Format("Train Lines ({0})", _transportLineLabels.Count);
+                    break;
+            }
         }
 
         public void ClearTransportLineLabels()
@@ -61,7 +74,7 @@ namespace EPTUI
             canFocus = true;
             isInteractive = true;
             width = 450;
-            height = 300;
+            height = 347;
 
             autoLayout = true;
             autoLayoutDirection = LayoutDirection.Vertical;
