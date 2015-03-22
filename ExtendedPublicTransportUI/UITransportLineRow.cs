@@ -59,7 +59,11 @@ namespace EPTUI
             set { width = value; }
         }
 
-        public bool IsLineHidden { get; set; }
+        public bool IsChecked
+        {
+            get { return _checkBox.IsChecked; }
+            set { _checkBox.IsChecked = value; }
+        }
 
         public override void Awake()
         {
@@ -76,6 +80,7 @@ namespace EPTUI
 
             height = 16;
             width = 450;
+            IsChecked = true;
         }
 
         public override void Start()
@@ -97,7 +102,6 @@ namespace EPTUI
             _vehicles.textColor = new Color32(185, 221, 254, 255);
 
             _checkBox.size = new Vector2(12, 12);
-            _checkBox.IsChecked = !IsLineHidden;
 
             _color.normalBgSprite = "ColorPickerOutline";
             _color.normalFgSprite = "ColorPickerColor";
