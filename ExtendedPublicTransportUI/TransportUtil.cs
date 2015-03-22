@@ -18,12 +18,13 @@ namespace EPTUI
         public static void HideTransportLine(ushort lineID)
         {
             Tm.m_lines.m_buffer[lineID].m_flags |= TransportLine.Flags.Hidden;
-			Tm.m_lines.m_buffer[lineID].m_flags &= ~TransportLine.Flags.Created;
+            Tm.m_lines.m_buffer[lineID].m_flags &= ~TransportLine.Flags.Created;
         }
+
         public static void ShowTransportLine(ushort lineID)
         {
             Tm.m_lines.m_buffer[lineID].m_flags &= ~TransportLine.Flags.Hidden;
-			Tm.m_lines.m_buffer[lineID].m_flags |= TransportLine.Flags.Created;
+            Tm.m_lines.m_buffer[lineID].m_flags |= TransportLine.Flags.Created;
         }
 
         public static void SelectTransportLine(ushort lineID)
