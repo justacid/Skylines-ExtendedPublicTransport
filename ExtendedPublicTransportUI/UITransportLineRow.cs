@@ -152,6 +152,15 @@ namespace EPTUI
 			} else {
 				this.color = new Color32(130,130,130,255);
 			}
+
+			//center elements in row
+			UIComponent[] children = this.GetComponentsInChildren<UIComponent>();
+			foreach (UIComponent child in children) {
+				if(child == this) continue;
+
+				child.pivot = UIPivotPoint.MiddleLeft;
+				child.transformPosition = new Vector3(child.transformPosition.x, this.GetBounds().center.y,0);
+			}
         }
 
         public void ShowLine()
