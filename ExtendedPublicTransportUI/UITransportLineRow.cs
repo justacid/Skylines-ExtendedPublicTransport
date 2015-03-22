@@ -83,7 +83,7 @@ namespace EPTUI
             base.Start();
 
             _checkBox.relativePosition = new Vector3(5, 0);
-            _color.relativePosition = new Vector3(22, -1.5f);
+            _color.relativePosition = new Vector3(22, 0);
             _name.relativePosition = new Vector3(43, 0);
             _stops.relativePosition = new Vector3(170, 0);
             _passengers.relativePosition = new Vector3(225, 0);
@@ -145,21 +145,20 @@ namespace EPTUI
             _trips.textScale = 0.8f;
             _vehicles.textScale = 0.8f;
 
-			//zebra stripes background
-			this.backgroundSprite = "GenericPanelLight";
-			if(IsOdd) {
-				this.color = new Color32(150,150,150,255);
-			} else {
-				this.color = new Color32(130,130,130,255);
-			}
+			// zebra stripes background
+			backgroundSprite = "GenericPanelLight";
+            if (IsOdd)
+                color = new Color32(150, 150, 150, 255);
+            else
+                color = new Color32(130, 130, 130, 255);
 
-			//center elements in row
-			UIComponent[] children = this.GetComponentsInChildren<UIComponent>();
+            // center elements in row
+			UIComponent[] children = GetComponentsInChildren<UIComponent>();
 			foreach (UIComponent child in children) {
 				if(child == this) continue;
 
 				child.pivot = UIPivotPoint.MiddleLeft;
-				child.transformPosition = new Vector3(child.transformPosition.x, this.GetBounds().center.y,0);
+				child.transformPosition = new Vector3(child.transformPosition.x, GetBounds().center.y, 0);
 			}
         }
 
