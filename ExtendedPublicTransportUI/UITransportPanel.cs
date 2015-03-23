@@ -13,6 +13,8 @@ namespace EPTUI
         private UIButtonContainer _buttons;
         private UICaptionContainer _captions;
         private List<GameObject> _transportLineLabels;
+        private UIScrollablePanel _scrollablePanel;
+        private UIPanel _panelForScrollPanel;
 
         public void PopulateTransportLineLabels()
         {
@@ -35,13 +37,10 @@ namespace EPTUI
 
 			bool odd = false;
             foreach (var go in _transportLineLabels) {
-                AttachUIComponent(go);
+                _scrollablePanel.AttachUIComponent(go);
 				go.GetComponent<UITransportLineRow>().IsOdd = odd;
 				odd = !odd;
 			}
-
-            var neededHeight = _transportLineLabels.Count*(16+2) + 95;
-            height = Mathf.Clamp(neededHeight, 347, 1000);
 
             switch (Type)
             {
@@ -85,6 +84,7 @@ namespace EPTUI
             autoLayoutStart = LayoutStart.TopLeft;
 
             SetupControls();
+            SetupScrollPanel ();
             PopulateTransportLineLabels();
         }
 
@@ -154,6 +154,66 @@ namespace EPTUI
                     var row = go.GetComponent<UITransportLineRow>();
                     row.HideLine();
                 }
+            };
+        }
+
+        private void SetupScrollPanel ()
+        {
+            //this probably needs to exist, otherwise the autoLayout of this UITransportPanel places the scrollbar weird
+            _panelForScrollPanel = AddUIComponent<UIPanel> ();
+
+            _panelForScrollPanel.width = width - 6;
+            //_captions reporting 450 height? fixed value of 20
+            _panelForScrollPanel.height = height - _title.height - _buttons.height - 20 - autoLayoutPadding.bottom * 4 - autoLayoutPadding.top * 4;
+
+
+            // taken from http://www.reddit.com/r/CitiesSkylinesModding/comments/2zrz0k/extended_public_transport_ui_provides_addtional/cpnet5q
+            _scrollablePanel = _panelForScrollPanel.AddUIComponent<UIScrollablePanel> ();
+            _scrollablePanel.width = _scrollablePanel.parent.width - 5f;
+            _scrollablePanel.height = _scrollablePanel.parent.height;
+
+            _scrollablePanel.autoLayout = true;
+            _scrollablePanel.autoLayoutDirection = LayoutDirection.Vertical;
+            _scrollablePanel.autoLayoutStart = LayoutStart.TopLeft;
+            _scrollablePanel.autoLayoutPadding = new RectOffset (0, 0, 1, 1);
+            _scrollablePanel.clipChildren = true;
+
+            _scrollablePanel.pivot = UIPivotPoint.TopLeft;
+            _scrollablePanel.AlignTo (_scrollablePanel.parent, UIAlignAnchor.TopLeft);
+
+            UIScrollbar scrollbar = _panelForScrollPanel.AddUIComponent<UIScrollbar> ();
+            scrollbar.width = scrollbar.parent.width - _scrollablePanel.width;
+            scrollbar.height = scrollbar.parent.height;
+            scrollbar.orientation = UIOrientation.Vertical;
+            scrollbar.pivot = UIPivotPoint.BottomLeft;
+            scrollbar.AlignTo (scrollbar.parent, UIAlignAnchor.TopRight);
+            scrollbar.minValue = 0;
+            scrollbar.value = 0;
+            scrollbar.incrementAmount = 50;
+
+            UISlicedSprite tracSprite = scrollbar.AddUIComponent<UISlicedSprite> ();
+            tracSprite.relativePosition = Vector2.zero;
+            tracSprite.autoSize = true;
+            tracSprite.size = tracSprite.parent.size;
+            tracSprite.fillDirection = UIFillDirection.Vertical;
+            tracSprite.spriteName = "ScrollbarTrack";
+
+            scrollbar.trackObject = tracSprite;
+
+            UISlicedSprite thumbSprite = tracSprite.AddUIComponent<UISlicedSprite> ();
+            thumbSprite.relativePosition = Vector2.zero;
+            thumbSprite.fillDirection = UIFillDirection.Vertical;
+            thumbSprite.autoSize = true;
+            thumbSprite.width = thumbSprite.parent.width;
+            thumbSprite.spriteName = "ScrollbarThumb";
+
+            scrollbar.thumbObject = thumbSprite;
+
+            _scrollablePanel.verticalScrollbar = scrollbar;
+            _scrollablePanel.eventMouseWheel += (component, param) =>
+            {
+                var sign = Math.Sign(param.wheelDelta);
+                _scrollablePanel.scrollPosition += new Vector2(0, sign*(-1) * 20);
             };
         }
     }
