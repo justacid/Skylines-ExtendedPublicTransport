@@ -210,6 +210,11 @@ namespace EPTUI
             scrollbar.thumbObject = thumbSprite;
 
             _scrollablePanel.verticalScrollbar = scrollbar;
+            _scrollablePanel.eventMouseWheel += (component, param) =>
+            {
+                var sign = Math.Sign(param.wheelDelta);
+                _scrollablePanel.scrollPosition += new Vector2(0, sign*(-1) * 20);
+            };
         }
     }
 }
