@@ -19,8 +19,6 @@ namespace EPTUI
 
         public override void OnUpdate(float realTimeDelta, float simulationTimeDelta)
         {
-            base.OnUpdate(realTimeDelta, simulationTimeDelta);
-
             var handlers = LineCountChanged;
             if (handlers == null)
                 return;
@@ -35,7 +33,6 @@ namespace EPTUI
 
         public override void OnReleased()
         {
-            base.OnReleased();
             LineCountChanged = null;
         }
 
@@ -96,9 +93,41 @@ namespace EPTUI
                 return;
 
             TransportObserver.ClearSubscribers();
-            GameObject.Destroy(_extendedBusPanel.gameObject);
-            GameObject.Destroy(_extendedMetroPanel.gameObject);
-            GameObject.Destroy(_extendedTrainPanel.gameObject);
+
+            // Making absolutely sure to unsubscribe ALL callbacks that where set on
+            // loading the mod. It seems the game sometimes(?) caches UI Elements even
+            // when going back to the main menu. This obviously leads to issues when
+            // the now non-existent GameObjects are being referenced.
+            if (_busPanel != null)
+            {
+                if (_busPanel.parent != null)
+                    _busPanel.parent.eventVisibilityChanged -= InfoPanelOnEventVisibilityChanged;
+
+                _busPanel.eventClick -= BusPanelOnEventClick;
+                _busPanel.eventMouseHover -= BusPanelOnEventMouseHover;
+                _busPanel.eventMouseLeave -= BusPanelOnEventMouseLeave;
+            }
+
+            if (_metroPanel != null)
+            {
+                _metroPanel.eventClick -= MetroPanelOnEventClick;
+                _metroPanel.eventMouseHover -= MetroPanelOnEventMouseHover;
+                _metroPanel.eventMouseLeave -= MetroPanelOnEventMouseLeave;
+            }
+
+            if (_trainPanel != null)
+            {
+                _trainPanel.eventClick -= TrainPanelOnEventClick;
+                _trainPanel.eventMouseHover -= TrainPanelOnEventMouseHover;
+                _trainPanel.eventMouseLeave -= TrainPanelOnEventMouseLeave;
+            }
+
+            if (_extendedBusPanel != null)
+                GameObject.Destroy(_extendedBusPanel.gameObject);
+            if (_extendedMetroPanel != null)
+                GameObject.Destroy(_extendedMetroPanel.gameObject);
+            if (_extendedTrainPanel != null)
+                GameObject.Destroy(_extendedTrainPanel.gameObject);
         }
 
         private void HookIntoNativeUI()
@@ -130,48 +159,86 @@ namespace EPTUI
             }
 
             // extended bus hook
-            _busPanel.eventClick += (component, param) =>
-            {
-                _extendedMetroPanel.isVisible = false;
-                _extendedTrainPanel.isVisible = false;
-                _extendedBusPanel.isVisible = !_extendedBusPanel.isVisible;
-                _extendedBusPanel.relativePosition = new Vector3(396, 58);
-            };
-            _busPanel.eventMouseHover += (component, param) => _busBg.color = new Color32(84, 182, 231, 255);
-            _busPanel.eventMouseLeave += (component, param) => _busBg.color = new Color32(44, 142, 191, 255);
+            _busPanel.eventClick += BusPanelOnEventClick;
+            _busPanel.eventMouseHover += BusPanelOnEventMouseHover;
+            _busPanel.eventMouseLeave += BusPanelOnEventMouseLeave;
 
             // extended metro hook
-            _metroPanel.eventClick += (component, param) =>
-            {
-                _extendedBusPanel.isVisible = false;
-                _extendedTrainPanel.isVisible = false;
-                _extendedMetroPanel.isVisible = !_extendedMetroPanel.isVisible;
-                _extendedMetroPanel.relativePosition = new Vector3(396, 58);
-            };
-            _metroPanel.eventMouseHover += (component, param) => _metroBg.color = new Color32(40, 224, 40, 255);
-            _metroPanel.eventMouseLeave += (component, param) => _metroBg.color = new Color32(0, 184, 0, 255);
+            _metroPanel.eventClick += MetroPanelOnEventClick;
+            _metroPanel.eventMouseHover += MetroPanelOnEventMouseHover;
+            _metroPanel.eventMouseLeave += MetroPanelOnEventMouseLeave;
 
             // extended train hook
-            _trainPanel.eventClick += (component, param) =>
+            _trainPanel.eventClick += TrainPanelOnEventClick;
+            _trainPanel.eventMouseHover += TrainPanelOnEventMouseHover;
+            _trainPanel.eventMouseLeave += TrainPanelOnEventMouseLeave;
+
+            // hide all extended panels, when the transport info view gets closed
+            _busPanel.parent.eventVisibilityChanged += InfoPanelOnEventVisibilityChanged;
+        }
+
+        private void BusPanelOnEventClick(UIComponent component, UIMouseEventParameter eventParam)
+        {
+            _extendedMetroPanel.isVisible = false;
+            _extendedTrainPanel.isVisible = false;
+            _extendedBusPanel.isVisible = !_extendedBusPanel.isVisible;
+            _extendedBusPanel.relativePosition = new Vector3(396, 58);
+        }
+
+        private void BusPanelOnEventMouseHover(UIComponent component, UIMouseEventParameter eventParam)
+        {
+            _busBg.color = new Color32(84, 182, 231, 255);
+        }
+
+        private void BusPanelOnEventMouseLeave(UIComponent component, UIMouseEventParameter eventParam)
+        {
+            _busBg.color = new Color32(44, 142, 191, 255);
+        }
+
+        private void MetroPanelOnEventClick(UIComponent component, UIMouseEventParameter eventParam)
+        {
+            _extendedBusPanel.isVisible = false;
+            _extendedTrainPanel.isVisible = false;
+            _extendedMetroPanel.isVisible = !_extendedMetroPanel.isVisible;
+            _extendedMetroPanel.relativePosition = new Vector3(396, 58);
+        }
+        private void MetroPanelOnEventMouseHover(UIComponent component, UIMouseEventParameter eventParam)
+        {
+            _metroBg.color = new Color32(40, 224, 40, 255);
+        }
+
+        private void MetroPanelOnEventMouseLeave(UIComponent component, UIMouseEventParameter eventParam)
+        {
+            _metroBg.color = new Color32(0, 184, 0, 255);
+        }
+
+        private void TrainPanelOnEventClick(UIComponent component, UIMouseEventParameter eventParam)
+        {
+            _extendedBusPanel.isVisible = false;
+            _extendedMetroPanel.isVisible = false;
+            _extendedTrainPanel.isVisible = !_extendedTrainPanel.isVisible;
+            _extendedTrainPanel.relativePosition = new Vector3(396, 58);
+        }
+
+        private void TrainPanelOnEventMouseHover(UIComponent component, UIMouseEventParameter eventParam)
+        {
+            _trainBg.color = new Color32(255, 126, 40, 255);
+        }
+
+        private void TrainPanelOnEventMouseLeave(UIComponent component, UIMouseEventParameter eventParam)
+        {
+            _trainBg.color = new Color32(219, 86, 0, 255);
+        }
+
+        private void InfoPanelOnEventVisibilityChanged(UIComponent component, bool visibility)
+        {
+            if (!visibility)
             {
                 _extendedBusPanel.isVisible = false;
                 _extendedMetroPanel.isVisible = false;
-                _extendedTrainPanel.isVisible = !_extendedTrainPanel.isVisible;
-                _extendedTrainPanel.relativePosition = new Vector3(396, 58);
-            };
-            _trainPanel.eventMouseHover += (component, param) => _trainBg.color = new Color32(255, 126, 40, 255);
-            _trainPanel.eventMouseLeave += (component, param) => _trainBg.color = new Color32(219, 86, 0, 255);
-
-            // hide all extended panels, when the transport info view gets closed
-            _busPanel.parent.eventVisibilityChanged += (component, visibility) =>
-            {
-                if (!visibility)
-                {
-                    _extendedBusPanel.isVisible = false;
-                    _extendedMetroPanel.isVisible = false;
-                    _extendedTrainPanel.isVisible = false;
-                }
-            };
+                _extendedTrainPanel.isVisible = false;
+            }
         }
+
     }
 }
