@@ -6,9 +6,9 @@ namespace EPTUI
     {
         public bool IsChecked { get; set; }
 
-        public override void Start()
+        public override void Awake()
         {
-            base.Start();
+            base.Awake();
             IsChecked = true;
             spriteName = "AchievementCheckedTrue";
         }

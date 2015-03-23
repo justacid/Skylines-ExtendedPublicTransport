@@ -80,7 +80,6 @@ namespace EPTUI
 
             height = 16;
             width = 450;
-            IsChecked = true;
         }
 
         public override void Start()
@@ -127,7 +126,7 @@ namespace EPTUI
                     TransportUtil.ShowTransportLine(LineID);
             };
 
-            _name.eventClick += (component, param) => 
+            _name.eventClick += (component, param) =>
                 WorldInfoPanel.Show<PublicTransportWorldInfoPanel>(TransportUtil.GetFirstLineStop(LineID), InstanceID);
 
             _name.eventMouseHover += (component, param) =>
@@ -169,13 +168,11 @@ namespace EPTUI
         public void ShowLine()
         {
             TransportUtil.ShowTransportLine(LineID);
-            _checkBox.IsChecked = true;
         }
 
         public void HideLine()
         {
             TransportUtil.HideTransportLine(LineID);
-            _checkBox.IsChecked = false;
         }
 
         public override void Update()
@@ -193,6 +190,7 @@ namespace EPTUI
             _vehicles.text = TransportUtil.GetVehicleCount(LineID).ToString();
 
             _color.selectedColor = TransportUtil.GetLineColor(LineID);
+            IsChecked = !TransportUtil.IsTransportLineHidden(LineID);
         }
     }
 }

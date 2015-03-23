@@ -36,6 +36,7 @@ namespace EPTUI
         {
             Tm.m_lines.m_buffer[lineID].m_flags &= ~TransportLine.Flags.Selected;
         }
+
         public static TransportInfo.TransportType GetTransportLineType(ushort lineID)
         {
             return Tm.m_lines.m_buffer[lineID].Info.m_transportType;

@@ -24,7 +24,6 @@ namespace EPTUI
                 var go = new GameObject(Enum.GetName(typeof (TransportInfo.TransportType), Type) + "LineRow");
                 var uic = go.AddComponent<UITransportLineRow>();
                 uic.LineID = index;
-                uic.IsChecked = !TransportUtil.IsTransportLineHidden(index);
                 _transportLineLabels.Add(go);
             }
 
@@ -129,9 +128,6 @@ namespace EPTUI
                 {
                     foreach (var index in TransportUtil.GetUsedTransportLineIndices())
                         TransportUtil.ShowTransportLine(index);
-
-                    foreach (var go in _transportLineLabels)
-                        go.GetComponent<UITransportLineRow>().IsChecked = true;
                 }
             };
 
