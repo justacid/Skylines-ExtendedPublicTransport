@@ -14,7 +14,6 @@ Extends the public transport UI with additional list views and toggles for bus, 
 * Fixed checkboxes in almost all cases
 
 ## Known Issues
-* **Sometimes doesn't open when loading a savegame. Workaround: Load again.**
 * Very long line names don't fit
 * Color picker doesn't work
 * Checkbox misbehaves when hovering over a line in edit mode
