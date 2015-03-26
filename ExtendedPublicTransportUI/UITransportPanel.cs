@@ -29,11 +29,7 @@ namespace EPTUI
                 _transportLineLabels.Add(go);
             }
 
-            _transportLineLabels.Sort(
-                (left, right) =>
-                    String.Compare(left.GetComponent<UITransportLineRow>()
-                        .LineName, right.GetComponent<UITransportLineRow>().LineName, StringComparison.OrdinalIgnoreCase)
-            );
+            _transportLineLabels.Sort(new LineLabelComparer());
 
 			bool odd = false;
             foreach (var go in _transportLineLabels) {
