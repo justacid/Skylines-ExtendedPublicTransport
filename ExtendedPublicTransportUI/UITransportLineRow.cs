@@ -183,7 +183,17 @@ namespace EPTUI
             var tourists = TransportUtil.GetTouristPassengerCount(LineID);
 
             LineName = TransportUtil.GetLineName(LineID);
-            _name.text = LineName;
+
+            _name.text = LineName.Trim();
+            bool clipped = false;
+            while (_name.width > 110)
+            {
+                _name.text = _name.text.Remove(_name.text.Length - 1);
+                clipped = true;
+            }
+            if (clipped)
+                _name.text = _name.text.Trim() + "...";
+
             _stops.text = TransportUtil.GetStopCount(LineID).ToString();
             _passengers.text = String.Format("{0}/{1}", residents, tourists);
             _trips.text = String.Format("{0}%", TransportUtil.GetTripsSaved(LineID));
