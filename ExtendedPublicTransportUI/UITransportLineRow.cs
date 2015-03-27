@@ -1,6 +1,7 @@
 ﻿using ColossalFramework.UI;
 using System;
 using UnityEngine;
+using System.Reflection;
 
 namespace EPTUI
 {
@@ -106,14 +107,16 @@ namespace EPTUI
             _color.normalFgSprite = "ColorPickerColor";
             _color.hoveredBgSprite = "ColorPickerOutlineHovered";
             _color.size = new Vector2(15, 15);
-            //_color.triggerButton = _color.AddUIComponent<UIButton>();
 
-            /* // Need to attach the ColorPicker somehow, the Button is being setup by ColorField itself (That's what I believe at least)
+            _color.triggerButton = _color.AddUIComponent<UIButton>();
+            _color.triggerButton.FitTo(_color.triggerButton.parent);
+            _color.triggerButton.CenterToParent();
+
+            // Need to attach the ColorPicker somehow, the Button is being setup by ColorField itself (That's what I believe at least)
             var panel = UIView.library.Get<PublicTransportWorldInfoPanel>("PublicTransportWorldInfoPanel");
             var fieldInfo = typeof (PublicTransportWorldInfoPanel).GetField("m_ColorField", BindingFlags.NonPublic | BindingFlags.Instance);
             var picker = (UIColorField)fieldInfo.GetValue(panel);
-            _color.colorPicker = Instantiate<UIColorPicker>(picker.colorPicker);
-            */
+            _color.colorPicker = UnityEngine.Object.Instantiate<UIColorPicker>(picker.colorPicker);
 
             // event handler
             _checkBox.eventClick += (component, param) =>
@@ -140,6 +143,9 @@ namespace EPTUI
                 TransportUtil.DeselectTransportLine(LineID);
                 _name.textColor = new Color32(185, 221, 254, 255);
             };
+            _color.eventSelectedColorChanged += (UIComponent component, Color value) => {
+                TransportUtil.SetLineColor(LineID,value);
+            };
 
             // scale label texts
             _name.textScale = 0.8f;
@@ -148,8 +154,8 @@ namespace EPTUI
             _trips.textScale = 0.8f;
             _vehicles.textScale = 0.8f;
 
-			// zebra stripes background
-			backgroundSprite = "GenericPanelLight";
+            // zebra stripes background
+            backgroundSprite = "GenericPanelLight";
             if (IsOdd)
                 color = new Color32(150, 150, 150, 255);
             else
