@@ -52,6 +52,12 @@ namespace EPTUI
             return Tm.GetLineColor(lineID);
         }
 
+        public static void SetLineColor(ushort lineID, Color color)
+        {
+            Tm.m_lines.m_buffer[(int)lineID].m_color = color;
+            Tm.m_lines.m_buffer[(int)lineID].m_flags |= TransportLine.Flags.CustomColor;
+        }
+
         public static uint GetStopCount(ushort lineID)
         {
             return (uint)Tm.m_lines.m_buffer[lineID].CountStops(lineID);
