@@ -7,6 +7,12 @@ Extends the public transport UI with additional list views and toggles for bus, 
 * Automatically hides transport lines of all other types
 * Hover over line name to highlight
 
+## New in 1.2
+* Colorpicker is now working
+* Lines are being sorted on rename
+* Natural sorting instead of lexicographic sorting
+* Long line names are now being trimmed
+
 ## New in 1.1
 * Zebra stripe background
 * Panel is now scrollable
@@ -14,8 +20,6 @@ Extends the public transport UI with additional list views and toggles for bus, 
 * Fixed checkboxes in almost all cases
 
 ## Known Issues
-* Very long line names don't fit
-* Color picker doesn't work
 * Checkbox misbehaves when hovering over a line in edit mode
 * While hovering over the name label in edit mode the line disappears
 
@@ -23,9 +27,10 @@ Extends the public transport UI with additional list views and toggles for bus, 
 [Interface heavily inspired by mockup from reddit user jb2386](http://www.reddit.com/r/CitiesSkylines/comments/2zjrlq/my_suggestion_for_improving_the_transportline/)  
 [ModTools - invaluable tool for devs](http://steamcommunity.com/sharedfiles/filedetails/?id=409520576)  
 [Pastadiablo - Fix for reappearing lines](https://github.com/pastadiablo)  
-[permutation - Zebra stripe background and scrollpanel](https://github.com/githubpermutation)  
+[permutation - Zebra stripe background, scrollpanel and help with the colorpicker](https://github.com/githubpermutation)  
 [LynxSnow - Helped getting the scrollpanel to work](http://www.reddit.com/user/LynxSnow)
 
-## Misc
-Pullrequests welcome!  
-If somebody knows how to get the UIColorPicker working, please shoot me a message.
+## Misc & Todo
+* Clean up code
+* Remove unnecessary threading...
+* Pullrequests welcome!
