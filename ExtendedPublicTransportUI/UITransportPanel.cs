@@ -26,6 +26,11 @@ namespace EPTUI
                 var go = new GameObject(Enum.GetName(typeof (TransportInfo.TransportType), Type) + "LineRow");
                 var uic = go.AddComponent<UITransportLineRow>();
                 uic.LineID = index;
+                uic.LineNameChanged += id =>
+                {
+                    ClearTransportLineLabels();
+                    PopulateTransportLineLabels();
+                };
                 _transportLineLabels.Add(go);
             }
 

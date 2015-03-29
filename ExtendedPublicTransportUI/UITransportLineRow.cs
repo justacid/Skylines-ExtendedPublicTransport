@@ -6,6 +6,9 @@ namespace EPTUI
 {
     public class UITransportLineRow : UIPanel
     {
+        public delegate void LineNameChangedHandler(ushort lineID);
+        public event LineNameChangedHandler LineNameChanged;
+
         private UICustomCheckbox _checkBox;
         private UIPanel _colorFieldPanel;
         private UIColorField _color;
@@ -182,7 +185,14 @@ namespace EPTUI
             var residents = TransportUtil.GetResidentPassengerCount(LineID);
             var tourists = TransportUtil.GetTouristPassengerCount(LineID);
 
-            LineName = TransportUtil.GetLineName(LineID);
+            var lineName = TransportUtil.GetLineName(LineID);
+            if (lineName != LineName)
+            {
+                var handlers = LineNameChanged;
+                if (handlers != null)
+                    handlers(LineID);
+            }
+            LineName = lineName;
 
             _name.text = LineName.Trim();
             bool clipped = false;
