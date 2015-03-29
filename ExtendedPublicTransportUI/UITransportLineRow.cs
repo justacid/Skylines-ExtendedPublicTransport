@@ -7,6 +7,7 @@ namespace EPTUI
     public class UITransportLineRow : UIPanel
     {
         private UICustomCheckbox _checkBox;
+        private UIPanel _colorFieldPanel;
         private UIColorField _color;
 
         private UILabel _name;
@@ -14,7 +15,7 @@ namespace EPTUI
         private UILabel _passengers;
         private UILabel _trips;
         private UILabel _vehicles;
-        
+
         private ushort _lineID;
         private InstanceID _instanceID;
         private string _lineName;
@@ -45,7 +46,7 @@ namespace EPTUI
             get { return _instanceID; }
         }
 
-		public bool IsOdd { get; set; }
+        public bool IsOdd { get; set; }
 
         public float Height
         {
@@ -69,14 +70,6 @@ namespace EPTUI
         {
             base.Awake();
 
-            _checkBox = AddUIComponent<UICustomCheckbox>();
-            _color = AddUIComponent<UIColorField>();
-
-            _name = AddUIComponent<UILabel>();
-            _stops = AddUIComponent<UILabel>();
-            _passengers = AddUIComponent<UILabel>();
-            _trips = AddUIComponent<UILabel>();
-            _vehicles = AddUIComponent<UILabel>();
 
             height = 16;
             width = 450;
@@ -86,8 +79,27 @@ namespace EPTUI
         {
             base.Start();
 
+            _checkBox = AddUIComponent<UICustomCheckbox>();
+
+            _colorFieldPanel = AddUIComponent<UIPanel>();
+            _colorFieldPanel.size = new Vector2(17, 17);
+            _colorFieldPanel.relativePosition = new Vector3(22, 0);
+
+            _color = Instantiate(FindObjectOfType<UIColorField>().gameObject).GetComponent<UIColorField>();
+            _colorFieldPanel.AttachUIComponent(_color.gameObject);
+            _color.name = "ColorPickerLine" + LineID;
+            _color.size = new Vector2(17, 17);
+            _color.relativePosition = new Vector3(0, 0);
+            _color.pickerPosition = UIColorField.ColorPickerPosition.RightAbove;
+            _color.eventSelectedColorChanged += (component, value) => TransportUtil.SetLineColor(LineID, value);
+
+            _name = AddUIComponent<UILabel>();
+            _stops = AddUIComponent<UILabel>();
+            _passengers = AddUIComponent<UILabel>();
+            _trips = AddUIComponent<UILabel>();
+            _vehicles = AddUIComponent<UILabel>();
+
             _checkBox.relativePosition = new Vector3(5, 0);
-            _color.relativePosition = new Vector3(22, 0);
             _name.relativePosition = new Vector3(43, 0);
             _stops.relativePosition = new Vector3(170, 0);
             _passengers.relativePosition = new Vector3(225, 0);
@@ -101,19 +113,6 @@ namespace EPTUI
             _vehicles.textColor = new Color32(185, 221, 254, 255);
 
             _checkBox.size = new Vector2(12, 12);
-
-            _color.normalBgSprite = "ColorPickerOutline";
-            _color.normalFgSprite = "ColorPickerColor";
-            _color.hoveredBgSprite = "ColorPickerOutlineHovered";
-            _color.size = new Vector2(15, 15);
-            //_color.triggerButton = _color.AddUIComponent<UIButton>();
-
-            /* // Need to attach the ColorPicker somehow, the Button is being setup by ColorField itself (That's what I believe at least)
-            var panel = UIView.library.Get<PublicTransportWorldInfoPanel>("PublicTransportWorldInfoPanel");
-            var fieldInfo = typeof (PublicTransportWorldInfoPanel).GetField("m_ColorField", BindingFlags.NonPublic | BindingFlags.Instance);
-            var picker = (UIColorField)fieldInfo.GetValue(panel);
-            _color.colorPicker = Instantiate<UIColorPicker>(picker.colorPicker);
-            */
 
             // event handler
             _checkBox.eventClick += (component, param) =>
@@ -148,21 +147,22 @@ namespace EPTUI
             _trips.textScale = 0.8f;
             _vehicles.textScale = 0.8f;
 
-			// zebra stripes background
-			backgroundSprite = "GenericPanelLight";
+            // zebra stripes background
+            backgroundSprite = "GenericPanelLight";
             if (IsOdd)
                 color = new Color32(150, 150, 150, 255);
             else
                 color = new Color32(130, 130, 130, 255);
 
             // center elements in row
-			UIComponent[] children = GetComponentsInChildren<UIComponent>();
-			foreach (UIComponent child in children) {
-				if(child == this) continue;
+            UIComponent[] children = GetComponentsInChildren<UIComponent>();
+            foreach (UIComponent child in children)
+            {
+                if (child == this) continue;
 
-				child.pivot = UIPivotPoint.MiddleLeft;
-				child.transformPosition = new Vector3(child.transformPosition.x, GetBounds().center.y, 0);
-			}
+                child.pivot = UIPivotPoint.MiddleLeft;
+                child.transformPosition = new Vector3(child.transformPosition.x, GetBounds().center.y, 0);
+            }
         }
 
         public void ShowLine()

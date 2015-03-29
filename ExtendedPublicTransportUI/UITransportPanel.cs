@@ -157,6 +157,8 @@ namespace EPTUI
         {
             //this probably needs to exist, otherwise the autoLayout of this UITransportPanel places the scrollbar weird
             _panelForScrollPanel = AddUIComponent<UIPanel> ();
+            // needed so that the colorpicker finds the right parent
+            _panelForScrollPanel.gameObject.AddComponent<UICustomControl>();
 
             _panelForScrollPanel.width = width - 6;
             //_captions reporting 450 height? fixed value of 20
