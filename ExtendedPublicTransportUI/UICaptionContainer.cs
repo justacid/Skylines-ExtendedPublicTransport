@@ -5,6 +5,8 @@ namespace EPTUI
 {
     public class UICaptionContainer : UIPanel
     {
+        public SortTransportLinesDelegate sortDelegate { get; set; }
+
         private UILabel _name;
         private UILabel _stops;
         private UILabel _passengers;
@@ -38,6 +40,29 @@ namespace EPTUI
             _passengers.text = "Passengers";
             _trips.text = "Trips Saved";
             _vehicles.text = "Vehicles";
+
+            // Sort by each column
+            //  ultimately based on value from UITransportLineRow (via LineComparer)
+            _name.eventClick += (component, param) =>
+            {
+                sortDelegate("LineName");
+            };
+            _stops.eventClick += (component, eventParam) =>
+            {
+                sortDelegate("Stops");
+            };
+            _passengers.eventClick += (component, param) =>
+            {
+                sortDelegate("TotalPassengers");
+            };
+            _trips.eventClick += (component, param) =>
+            {
+                sortDelegate("Trips");
+            };
+            _vehicles.eventClick += (component, param) =>
+            {
+                sortDelegate("Vehicles");
+            };
 
             width = 450;
             height = 20;

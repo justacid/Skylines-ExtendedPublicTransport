@@ -44,6 +44,24 @@ namespace EPTUI
             private set { _lineName = value; }
         }
 
+        public uint Stops
+        {
+            get { return TransportUtil.GetStopCount (LineID); }
+        }
+
+        public uint TotalPassengers
+        {
+            get { return (TransportUtil.GetResidentPassengerCount(LineID) + TransportUtil.GetTouristPassengerCount(LineID)); }
+        }
+
+        public uint Trips {
+            get { return TransportUtil.GetTripsSaved (LineID); }
+        }
+
+        public uint Vehicles {
+            get { return TransportUtil.GetVehicleCount (LineID); }
+        }
+
         public InstanceID InstanceID
         {
             get { return _instanceID; }
@@ -204,10 +222,10 @@ namespace EPTUI
             if (clipped)
                 _name.text = _name.text.Trim() + "...";
 
-            _stops.text = TransportUtil.GetStopCount(LineID).ToString();
+            _stops.text = Stops.ToString();
             _passengers.text = String.Format("{0}/{1}", residents, tourists);
-            _trips.text = String.Format("{0}%", TransportUtil.GetTripsSaved(LineID));
-            _vehicles.text = TransportUtil.GetVehicleCount(LineID).ToString();
+            _trips.text = String.Format("{0}%", Trips);
+            _vehicles.text = Vehicles.ToString();
 
             _color.selectedColor = TransportUtil.GetLineColor(LineID);
             IsChecked = !TransportUtil.IsTransportLineHidden(LineID);

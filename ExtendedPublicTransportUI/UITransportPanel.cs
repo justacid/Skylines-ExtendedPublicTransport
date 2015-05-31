@@ -5,6 +5,8 @@ using UnityEngine;
 
 namespace EPTUI
 {
+    public delegate void SortTransportLinesDelegate (string sortFieldName = "LineName");
+
     public class UITransportPanel : UIPanel
     {
         public TransportInfo.TransportType Type { get; set; }
@@ -16,7 +18,7 @@ namespace EPTUI
         private UIScrollablePanel _scrollablePanel;
         private UIPanel _panelForScrollPanel;
 
-        public void PopulateTransportLineLabels()
+        public void PopulateTransportLineLabels(string sortFieldName="LineName")
         {
             foreach (var index in TransportUtil.GetUsedTransportLineIndices())
             {
@@ -34,14 +36,14 @@ namespace EPTUI
                 _transportLineLabels.Add(go);
             }
 
-            _transportLineLabels.Sort(new LineLabelComparer());
+            _transportLineLabels.Sort(new LineComparer(sortFieldName));
 
-			bool odd = false;
+            bool odd = false;
             foreach (var go in _transportLineLabels) {
                 _scrollablePanel.AttachUIComponent(go);
-				go.GetComponent<UITransportLineRow>().IsOdd = odd;
-				odd = !odd;
-			}
+                go.GetComponent<UITransportLineRow>().IsOdd = odd;
+                odd = !odd;
+            }
 
             switch (Type)
             {
@@ -97,7 +99,10 @@ namespace EPTUI
             _title.Parent = this;
 
             _buttons = AddUIComponent<UIButtonContainer>();
+
             _captions = AddUIComponent<UICaptionContainer>();
+            _captions.sortDelegate = SortTransportLinesMethod;
+
 
             switch (Type)
             {
@@ -218,6 +223,11 @@ namespace EPTUI
                 var sign = Math.Sign(param.wheelDelta);
                 _scrollablePanel.scrollPosition += new Vector2(0, sign*(-1) * 20);
             };
+        }
+
+        private void SortTransportLinesMethod(string sortFieldName="LineName") {
+            ClearTransportLineLabels();
+            PopulateTransportLineLabels(sortFieldName);
         }
     }
 }
