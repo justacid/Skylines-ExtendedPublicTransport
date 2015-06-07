@@ -28,9 +28,11 @@ Extends the public transport UI with additional list views and toggles for bus, 
 [ModTools - invaluable tool for devs](http://steamcommunity.com/sharedfiles/filedetails/?id=409520576)  
 [Pastadiablo - Fix for reappearing lines](https://github.com/pastadiablo)  
 [permutation - Zebra stripe background, scrollpanel and help with the colorpicker](https://github.com/githubpermutation)  
-[LynxSnow - Helped getting the scrollpanel to work](http://www.reddit.com/user/LynxSnow)
+[LynxSnow - Helped getting the scrollpanel to work](http://www.reddit.com/user/LynxSnow)  
+[leeclemens - Sortable columns](https://github.com/leeclemens)
 
 ## Misc & Todo
+* Reenable linename trimming
 * Clean up code
 * Remove unnecessary threading...
 * Pullrequests welcome!
