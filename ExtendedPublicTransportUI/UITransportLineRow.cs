@@ -54,11 +54,13 @@ namespace EPTUI
             get { return (TransportUtil.GetResidentPassengerCount(LineID) + TransportUtil.GetTouristPassengerCount(LineID)); }
         }
 
-        public uint Trips {
+        public uint Trips 
+        {
             get { return TransportUtil.GetTripsSaved (LineID); }
         }
 
-        public uint Vehicles {
+        public uint Vehicles 
+        {
             get { return TransportUtil.GetVehicleCount (LineID); }
         }
 
@@ -90,7 +92,6 @@ namespace EPTUI
         public override void Awake()
         {
             base.Awake();
-
 
             height = 16;
             width = 450;
@@ -212,7 +213,7 @@ namespace EPTUI
             }
             LineName = lineName;
 
-            _name.text = LineName.Trim();
+            /*_name.text = LineName.Trim();
             bool clipped = false;
             while (_name.width > 110)
             {
@@ -220,7 +221,7 @@ namespace EPTUI
                 clipped = true;
             }
             if (clipped)
-                _name.text = _name.text.Trim() + "...";
+                _name.text = _name.text.Trim() + "...";*/
 
             _stops.text = Stops.ToString();
             _passengers.text = String.Format("{0}/{1}", residents, tourists);
