@@ -54,7 +54,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="LineLabelComparer.cs" />
+    <Compile Include="LineComparer.cs" />
     <Compile Include="ModDebug.cs" />
     <Compile Include="Mod.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
