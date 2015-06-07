@@ -213,8 +213,8 @@ namespace EPTUI
             }
             LineName = lineName;
 
-            /*_name.text = LineName.Trim();
-            bool clipped = false;
+            _name.text = LineName.Trim();
+            /*bool clipped = false;
             while (_name.width > 110)
             {
                 _name.text = _name.text.Remove(_name.text.Length - 1);
