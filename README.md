@@ -29,7 +29,8 @@ Extends the public transport UI with additional list views and toggles for bus, 
 [Pastadiablo - Fix for reappearing lines](https://github.com/pastadiablo)  
 [permutation - Zebra stripe background, scrollpanel and help with the colorpicker](https://github.com/githubpermutation)  
 [LynxSnow - Helped getting the scrollpanel to work](http://www.reddit.com/user/LynxSnow)  
-[leeclemens - Sortable columns](https://github.com/leeclemens)
+[leeclemens - Sortable columns](https://github.com/leeclemens)  
+[earalov - Delete buttons](https://github.com/earalov)
 
 ## Misc & Todo
 * Reenable linename trimming
