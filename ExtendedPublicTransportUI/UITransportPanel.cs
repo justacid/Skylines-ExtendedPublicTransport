@@ -78,7 +78,7 @@ namespace EPTUI
             isVisible = false;
             canFocus = true;
             isInteractive = true;
-            width = 450;
+            width = 467;
             height = 347;
 
             autoLayout = true;

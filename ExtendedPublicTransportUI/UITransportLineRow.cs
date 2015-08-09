@@ -1,5 +1,6 @@
 ﻿using ColossalFramework.UI;
 using System;
+using ColossalFramework;
 using UnityEngine;
 
 namespace EPTUI
@@ -18,6 +19,8 @@ namespace EPTUI
         private UILabel _passengers;
         private UILabel _trips;
         private UILabel _vehicles;
+
+        private UIButton _deleteButton;
 
         private ushort _lineID;
         private InstanceID _instanceID;
@@ -120,6 +123,13 @@ namespace EPTUI
             _passengers = AddUIComponent<UILabel>();
             _trips = AddUIComponent<UILabel>();
             _vehicles = AddUIComponent<UILabel>();
+            _deleteButton = AddUIComponent<UIButton>();
+            _deleteButton.size = new Vector2(17, 17);
+            _deleteButton.tooltip = "Delete line";
+            _deleteButton.normalFgSprite = "buttonclose";
+            _deleteButton.pressedFgSprite = "buttonclosepressed";
+            _deleteButton.hoveredFgSprite = "buttonclosehover";
+            _deleteButton.isVisible = true;
 
             _checkBox.relativePosition = new Vector3(5, 0);
             _name.relativePosition = new Vector3(43, 0);
@@ -127,6 +137,7 @@ namespace EPTUI
             _passengers.relativePosition = new Vector3(225, 0);
             _trips.relativePosition = new Vector3(320, 0);
             _vehicles.relativePosition = new Vector3(401, 0);
+            _deleteButton.relativePosition = new Vector3(435, 0);
 
             _name.textColor = new Color32(185, 221, 254, 255);
             _stops.textColor = new Color32(185, 221, 254, 255);
@@ -162,12 +173,16 @@ namespace EPTUI
                 _name.textColor = new Color32(185, 221, 254, 255);
             };
 
+            _deleteButton.eventClick += (component, param) =>
+                Singleton<TransportManager>.instance.ReleaseLine(LineID);
+
             // scale label texts
             _name.textScale = 0.8f;
             _stops.textScale = 0.8f;
             _passengers.textScale = 0.8f;
             _trips.textScale = 0.8f;
             _vehicles.textScale = 0.8f;
+            _deleteButton.textScale = 0.8f;
 
             // zebra stripes background
             backgroundSprite = "GenericPanelLight";
