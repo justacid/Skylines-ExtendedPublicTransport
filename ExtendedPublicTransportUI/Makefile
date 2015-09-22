@@ -1,0 +1,2 @@
+ExtendedPublicTransportUI.dll: LineComparer.cs  ModDebug.cs UIButtonContainer.cs  UICustomCheckbox.cs  UITransportLineRow.cs UIUtil.cs Mod.cs TransportUtil.cs UICaptionContainer.cs UITitleContainer.cs UITransportPanel.cs Language.cs
+	mcs -out:ExtendedPublicTransportUI.dll -target:library -r:ColossalManaged.dll -r:ICities.dll -r:Assembly-CSharp.dll -r:UnityEngine.dll LineComparer.cs  ModDebug.cs UIButtonContainer.cs  UICustomCheckbox.cs  UITransportLineRow.cs UIUtil.cs Mod.cs TransportUtil.cs UICaptionContainer.cs UITitleContainer.cs UITransportPanel.cs Language.cs

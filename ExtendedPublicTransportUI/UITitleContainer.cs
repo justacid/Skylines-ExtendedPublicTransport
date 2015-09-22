@@ -43,7 +43,7 @@ namespace EPTUI
 
             height = 40;
             width = 450;
-            TitleText = "(None)";
+            TitleText = EPTUILang.text("NONE");
             IconSprite = "";
         }
 

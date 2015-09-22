@@ -48,13 +48,13 @@ namespace EPTUI
             switch (Type)
             {
                 case TransportInfo.TransportType.Bus:
-                    _title.TitleText = String.Format("Bus Lines ({0})", _transportLineLabels.Count);
+                    _title.TitleText = String.Format(EPTUILang.text("BUS_LINES"), _transportLineLabels.Count);
                     break;
                 case TransportInfo.TransportType.Metro:
-                    _title.TitleText = String.Format("Metro Lines ({0})", _transportLineLabels.Count);
+                    _title.TitleText = String.Format(EPTUILang.text("METRO_LINES"), _transportLineLabels.Count);
                     break;
                 case TransportInfo.TransportType.Train:
-                    _title.TitleText = String.Format("Train Lines ({0})", _transportLineLabels.Count);
+                    _title.TitleText = String.Format(EPTUILang.text("TRAIN_LINES"), _transportLineLabels.Count);
                     break;
             }
         }

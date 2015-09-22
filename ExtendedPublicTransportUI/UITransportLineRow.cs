@@ -125,7 +125,7 @@ namespace EPTUI
             _vehicles = AddUIComponent<UILabel>();
             _deleteButton = AddUIComponent<UIButton>();
             _deleteButton.size = new Vector2(17, 17);
-            _deleteButton.tooltip = "Delete line";
+            _deleteButton.tooltip = EPTUILang.text("DELETE_LINE");
             _deleteButton.normalFgSprite = "buttonclose";
             _deleteButton.pressedFgSprite = "buttonclosepressed";
             _deleteButton.hoveredFgSprite = "buttonclosehover";
