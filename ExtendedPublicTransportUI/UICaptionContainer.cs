@@ -23,11 +23,11 @@ namespace EPTUI
             _trips = AddUIComponent<UILabel>();
             _vehicles = AddUIComponent<UILabel>();
 
-            _name.relativePosition = new Vector3(43, 0);
-            _stops.relativePosition = new Vector3(160, 0);
-            _passengers.relativePosition = new Vector3(207, 0);
-            _trips.relativePosition = new Vector3(294, 0);
-            _vehicles.relativePosition = new Vector3(380, 0);
+            _name.relativePosition = new Vector3(EPTUILang.ColumnWidths[0], 0);
+            _stops.relativePosition = new Vector3(EPTUILang.ColumnWidths[1], 0);
+            _passengers.relativePosition = new Vector3(EPTUILang.ColumnWidths[2], 0);
+            _trips.relativePosition = new Vector3(EPTUILang.ColumnWidths[3], 0);
+            _vehicles.relativePosition = new Vector3(EPTUILang.ColumnWidths[4], 0);
 
             _name.textScale = 0.85f;
             _stops.textScale = 0.85f;
@@ -35,11 +35,11 @@ namespace EPTUI
             _trips.textScale = 0.85f;
             _vehicles.textScale = 0.85f;
 
-            _name.text = "Name";
-            _stops.text = "Stops";
-            _passengers.text = "Passengers";
-            _trips.text = "Trips Saved";
-            _vehicles.text = "Vehicles";
+            _name.text = EPTUILang.text("NAME");
+            _stops.text = EPTUILang.text("STOPS");
+            _passengers.text = EPTUILang.text("PASSENGERS");
+            _trips.text = EPTUILang.text("TRIPS_SAVED");
+            _vehicles.text = EPTUILang.text("VEHICLES");
 
             // sort by each column
             // ultimately based on value from UITransportLineRow (via LineComparer)

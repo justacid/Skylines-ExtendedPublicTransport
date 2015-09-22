@@ -24,9 +24,9 @@ namespace EPTUI
             _selectAll = AddUIComponent<UIButton>();
             _selectNone = AddUIComponent<UIButton>();
 
-            _selectAll.text = "Select All";
+            _selectAll.text = EPTUILang.text("SELECT_ALL");;
             _selectAll.textScale = 0.9f;
-            _selectNone.text = "Select None";
+            _selectNone.text = EPTUILang.text("SELECT_NONE");
             _selectNone.textScale = 0.9f;
 
             _selectAll.normalBgSprite = "ButtonMenu";
@@ -39,11 +39,11 @@ namespace EPTUI
             _selectNone.focusedBgSprite = "ButtonMenuFocused";
             _selectNone.pressedBgSprite = "ButtonMenuPressed";
 
-            _selectAll.size = new Vector2(100, 30);
-            _selectNone.size = new Vector2(100, 30);
+            _selectAll.size = new Vector2(115, 30);
+            _selectNone.size = new Vector2(115, 30);
 
             _selectAll.relativePosition = new Vector3(5, 0);
-            _selectNone.relativePosition = new Vector3(110, 0);
+            _selectNone.relativePosition = new Vector3(125, 0);
 
             width = 450;
             height = 30;
