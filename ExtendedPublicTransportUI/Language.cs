@@ -19,10 +19,10 @@ namespace EPTUI
 
 		public static string text (string index) {
 
-			if (GameLanguage == null || GameLanguage != Locale.Get ("LANGUAGE_ENGLISH")) {
+			ColossalFramework.SavedString lang_setting = new ColossalFramework.SavedString("localeID", "gameSettings");
+			if (GameLanguage == null || GameLanguage != lang_setting.value) {
 
 				try {
-					ColossalFramework.SavedString lang_setting = new ColossalFramework.SavedString("localeID", "gameSettings");
 					GameLanguage = lang_setting.value;
 					if (GameLanguage == "nl") {
 						ColumnWidths = new int[] {43,160,207,276,380};
@@ -104,7 +104,7 @@ namespace EPTUI
 					return nl [index];
 				}
 				if (GameLanguage == "it") {
-					return de [index];
+					return it [index];
 				}
 				if (GameLanguage == "de") {
 					return de [index];
