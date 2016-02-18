@@ -1,5 +1,8 @@
-# Cities: Skylines - Extended Public Transport UI
+# Cities: Skylines - Extended Public Transport UI (Obsolete)
 Extends the public transport UI with additional list views and toggles for bus, metro and train. Nicely integrates with the native UI. Just press the bus, metro or train panel in the public transport panel to bring up the extended UI.
+
+With the newest update of Cities: Skylines EPTUI has become obsolete. All functionality of the mod has been integrated
+into the base game by Colossal Order - thanks to all contributors!
 
 ## Features
 * Toggle visibility of all lines with one click
